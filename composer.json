@@ -70,9 +70,12 @@
         "pre-package-uninstall": [
             "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
         ],
-        "lint": [
-            "vendor/bin/pint --parallel --diff=main --max-processes=4 --preset psr12",
-            "vendor/bin/phpstan analyse --level 9 app"
+        "lint": "vendor/bin/pint --parallel --diff=main --max-processes=4",
+        "phpstan": "vendor/bin/phpstan analyse --level 9 app",
+        "ci": [
+            "composer lint",
+            "composer phpstan",
+            "composer test"
         ]
     },
     "extra": {
