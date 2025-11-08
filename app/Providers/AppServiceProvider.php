@@ -26,6 +26,14 @@ class AppServiceProvider extends ServiceProvider
             concrete: \App\Infrastructure\Framework\Persistence\Eloquent\BookAuthorRelationRepository::class
         );
         $this->app->bind(
+            abstract: \App\Domain\Contracts\Persistence\SubjectRepository::class,
+            concrete: \App\Infrastructure\Framework\Persistence\Eloquent\SubjectRepository::class
+        );
+        $this->app->bind(
+            abstract: \App\Domain\Contracts\Persistence\BookSubjectRelationRepository::class,
+            concrete: \App\Infrastructure\Framework\Persistence\Eloquent\BookSubjectRelationRepository::class
+        );
+        $this->app->bind(
             abstract: \App\Domain\Contracts\Persistence\DatabaseTransactionManager::class,
             concrete: \App\Infrastructure\Framework\Persistence\LaravelTransactionManager::class
         );

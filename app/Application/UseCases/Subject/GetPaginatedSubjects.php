@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Application\UseCases\Author;
+namespace App\Application\UseCases\Subject;
 
-use App\Domain\Contracts\Persistence\AuthorRepository;
+use App\Domain\Contracts\Persistence\SubjectRepository;
 use App\Domain\ValueObjects\CursorPagination;
 
-readonly class GetPaginatedAuthors
+readonly class GetPaginatedSubjects
 {
-    public function __construct(private AuthorRepository $repository)
+    public function __construct(private SubjectRepository $repository)
     {
     }
 

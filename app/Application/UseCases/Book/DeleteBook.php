@@ -6,6 +6,7 @@ namespace App\Application\UseCases\Book;
 
 use App\Domain\Contracts\Persistence\BookAuthorRelationRepository;
 use App\Domain\Contracts\Persistence\BookRepository;
+use App\Domain\Contracts\Persistence\BookSubjectRelationRepository;
 use App\Domain\Contracts\Persistence\DatabaseTransactionManager;
 
 readonly class DeleteBook
@@ -13,6 +14,7 @@ readonly class DeleteBook
     public function __construct(
         private BookRepository $repository,
         private BookAuthorRelationRepository $relationRepository,
+        private BookSubjectRelationRepository $subjectRelationRepository,
         private DatabaseTransactionManager $transactionManager
     ) {
     }
@@ -26,6 +28,7 @@ readonly class DeleteBook
         $this->transactionManager->run(function () use ($id) {
             $this->repository->delete(id: $id);
             $this->relationRepository->delete(bookId: $id);
+            $this->subjectRelationRepository->delete(bookId: $id);
         });
     }
 }

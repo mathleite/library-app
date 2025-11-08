@@ -7,6 +7,7 @@ use App\Domain\Entities\Book;
 use App\Domain\Exceptions\InvalidMoneyException;
 use App\Models\BookAuthorRelationModel;
 use App\Models\BookModel;
+use App\Models\BookSubjectRelationModel;
 
 readonly class BookMapper
 {
@@ -27,6 +28,9 @@ readonly class BookMapper
             authors: $data->authors
                 ? self::mapAuthors($data->authors)
                 : [],
+            subjects: $data->subjects
+                ? self::mapSubjects($data->subjects)
+                : [],
         );
     }
 
@@ -38,6 +42,17 @@ readonly class BookMapper
     {
         return $authorRelation->map(function (BookAuthorRelationModel $relation) {
             return AuthorMapper::toDomain($relation->author);
+        })->toArray();
+    }
+
+    /**
+     * @param iterable $subjectRelation
+     * @return array
+     */
+    private static function mapSubjects(iterable $subjectRelation): array
+    {
+        return $subjectRelation->map(function (BookSubjectRelationModel $relation) {
+            return SubjectMapper::toDomain($relation->subject);
         })->toArray();
     }
 }

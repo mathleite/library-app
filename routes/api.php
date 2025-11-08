@@ -2,6 +2,7 @@
 
 use App\Infrastructure\Framework\Controllers\AuthorController;
 use App\Infrastructure\Framework\Controllers\BookController;
+use App\Infrastructure\Framework\Controllers\SubjectController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -12,4 +13,5 @@ Route::get('/user', function (Request $request) {
 Route::prefix('v1')->group(function () {
     Route::resource('authors', AuthorController::class);
     Route::resource('books', BookController::class);
+    Route::resource('subjects', SubjectController::class);
 });

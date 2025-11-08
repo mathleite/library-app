@@ -4,10 +4,19 @@ declare(strict_types=1);
 
 namespace App\Domain\Entities;
 
+use App\Domain\Shared\Arrayable;
+
 readonly class Subject
 {
-    /** @param string $description */
-    public function __construct(string $description)
-    {
+    use Arrayable;
+
+    /**
+     * @param string $description
+     * @param int|null $id
+     */
+    public function __construct(
+        public string $description,
+        public ?int $id = null
+    ) {
     }
 }

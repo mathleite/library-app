@@ -33,5 +33,6 @@ function isNotFoundResource(\App\Domain\Exceptions\DomainException $exception): 
 {
     return $exception instanceof \App\Domain\Exceptions\AuthorNotFoundException
         || $exception instanceof \App\Domain\Exceptions\BookNotFoundException
-        || $exception instanceof \App\Domain\Exceptions\BookAuthorRelationNotFoundException;
+        || $exception instanceof \App\Domain\Exceptions\BookAuthorRelationNotFoundException
+        || $exception instanceof \App\Domain\Exceptions\SubjectNotFoundException;
 }

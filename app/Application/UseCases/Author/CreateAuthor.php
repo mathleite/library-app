@@ -13,6 +13,10 @@ readonly class CreateAuthor
     {
     }
 
+    /**
+     * @param string $name
+     * @return void
+     */
     public function execute(string $name): void
     {
         $this->repository->save(new Author($name));

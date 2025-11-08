@@ -29,6 +29,7 @@ readonly class Book
         public Money $price,
         public ?int $id = null,
         public array $authors = [],
+        public array $subjects = [],
     ) {
     }
 
@@ -39,6 +40,8 @@ readonly class Book
      * @param int $edition
      * @param int $price
      * @param int|null $id
+     * @param array $authors
+     * @param array $subjects
      * @return self
      * @throws InvalidMoneyException
      */
@@ -50,6 +53,7 @@ readonly class Book
         int $price,
         ?int $id = null,
         array $authors = [],
+        array $subjects = [],
     ): self {
         return new self(
             title: $title,
@@ -59,6 +63,7 @@ readonly class Book
             price: new Money($price),
             id: $id,
             authors: $authors,
+            subjects: $subjects,
         );
     }
 }
