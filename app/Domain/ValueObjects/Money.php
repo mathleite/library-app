@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\ValueObjects;
+namespace App\Domain\ValueObjects;
 
-use App\ValueObjects\Exceptions\InvalidMoneyException;
+use App\Domain\Exceptions\InvalidMoneyException;
 use TypeError;
 
 readonly class Money

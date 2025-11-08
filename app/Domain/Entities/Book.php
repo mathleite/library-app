@@ -2,26 +2,33 @@
 
 declare(strict_types=1);
 
-namespace App\Domain;
+namespace App\Domain\Entities;
 
-use App\ValueObjects\Exceptions\InvalidMoneyException;
-use App\ValueObjects\Money;
+use App\Domain\Exceptions\InvalidMoneyException;
+use App\Domain\Shared\Arrayable;
+use App\Domain\ValueObjects\Money;
 
 readonly class Book
 {
+    use Arrayable;
+
     /**
      * @param string $title
      * @param string $editor
      * @param string $publicationYear
      * @param int $edition
      * @param Money $price
+     * @param int|null $id
+     * @param array $authors
      */
     public function __construct(
-        string $title,
-        string $editor,
-        string $publicationYear,
-        int $edition,
-        Money $price
+        public string $title,
+        public string $editor,
+        public string $publicationYear,
+        public int $edition,
+        public Money $price,
+        public ?int $id = null,
+        public array $authors = [],
     ) {
     }
 
@@ -31,6 +38,7 @@ readonly class Book
      * @param string $publicationYear
      * @param int $edition
      * @param int $price
+     * @param int|null $id
      * @return self
      * @throws InvalidMoneyException
      */
@@ -39,14 +47,18 @@ readonly class Book
         string $editor,
         string $publicationYear,
         int $edition,
-        int $price
+        int $price,
+        ?int $id = null,
+        array $authors = [],
     ): self {
         return new self(
             title: $title,
             editor: $editor,
             publicationYear: $publicationYear,
             edition: $edition,
-            price: new Money($price)
+            price: new Money($price),
+            id: $id,
+            authors: $authors,
         );
     }
 }

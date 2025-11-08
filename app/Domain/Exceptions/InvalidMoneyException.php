@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\ValueObjects\Exceptions;
-
-use App\Domain\DomainException;
+namespace App\Domain\Exceptions;
 
 class InvalidMoneyException extends DomainException
 {
