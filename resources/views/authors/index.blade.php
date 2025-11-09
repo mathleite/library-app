@@ -34,7 +34,7 @@
             document.addEventListener('DOMContentLoaded', getAllAuthors);
             async function getAllAuthors() {
                 try {
-                    const response = await fetch('{{ route("authors.index") }}', {
+                    const response = await fetch('{{ route("authors.api.index") }}', {
                         method: 'GET',
                         headers: {
                             'Content-Type': 'application/json',

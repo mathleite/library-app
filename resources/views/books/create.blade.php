@@ -198,13 +198,13 @@
                 fetchOptions: async () => {
                     const endpoints = [
                         {
-                            url: '{{ route("authors.index") }}',
+                            url: '{{ route("authors.api.index") }}',
                             key: 'authors',
                             containerId: 'authors',
                             nameField: 'name'
                         },
                         {
-                            url: '{{ route("subjects.index") }}',
+                            url: '{{ route("subjects.api.index") }}',
                             key: 'subjects',
                             containerId: 'subjects',
                             nameField: 'description'
@@ -237,7 +237,7 @@
                 },
 
                 createBook: async (bookData) => {
-                    const response = await fetch('{{ route("books.store") }}', {
+                    const response = await fetch('{{ route("books.api.store") }}', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

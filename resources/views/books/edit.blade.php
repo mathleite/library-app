@@ -254,8 +254,8 @@
             const ApiService = {
                 fetchAllData: async (bookId) => {
                     const endpoints = [
-                        { url: '{{ route("authors.index") }}', key: 'authors' },
-                        { url: '{{ route("subjects.index") }}', key: 'subjects' },
+                        { url: '{{ route("authors.api.index") }}', key: 'authors' },
+                        { url: '{{ route("subjects.api.index") }}', key: 'subjects' },
                         { url: `{{ url('api/v1/books') }}/${bookId}`, key: 'book' }
                     ];
 
@@ -274,7 +274,7 @@
                 },
 
                 updateBook: async (bookId, data) => {
-                    const route = "{{ route('books.update', ['book' => ':id']) }}".replace(':id', bookId);
+                    const route = "{{ route('books.api.update', ['id' => ':id']) }}".replace(':id', bookId);
 
                     const response = await fetch(route, {
                         method: 'PUT',

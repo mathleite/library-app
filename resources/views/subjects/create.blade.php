@@ -83,7 +83,7 @@
                     spinner.classList.remove('d-none');
 
                     try {
-                        const response = await fetch('{{ route("subjects.store") }}', {
+                        const response = await fetch('{{ route("subjects.api.store") }}', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',

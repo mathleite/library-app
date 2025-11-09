@@ -34,7 +34,7 @@
             document.addEventListener('DOMContentLoaded', getAllSubjects);
             async function getAllSubjects() {
                 try {
-                    const response = await fetch('{{ route("subjects.index") }}', {
+                    const response = await fetch('{{ route("subjects.api.index") }}', {
                         method: 'GET',
                         headers: {
                             'Content-Type': 'application/json',

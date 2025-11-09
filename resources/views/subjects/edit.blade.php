@@ -67,6 +67,12 @@
                     }
                 });
 
+                async function fetchData(subjectId) {
+                    const data = await fetch(`{{ url('api/v1/subjects') }}/${subjectId}`);
+                    descInput.value = (await data.json()).description;
+                }
+                const id = '{{ request()->route('id') }}';
+                fetchData(id);
                 form.addEventListener('submit', async function(e) {
                     e.preventDefault();
 
@@ -83,7 +89,7 @@
                     spinner.classList.remove('d-none');
 
                     try {
-                        const route = "{{ route("subjects.update", ['subject' => ':id']) }}";
+                        const route = "{{ route("subjects.api.update", ['id' => ':id']) }}";
                         const finalRoute = route.replace(':id', '{{ request()->route('id') }}')
                         const response = await fetch(finalRoute, {
                             method: 'PUT',

@@ -66,6 +66,12 @@
                         this.classList.remove('is-invalid');
                     }
                 });
+                async function fetchData(authorId) {
+                    const data = await fetch(`{{ url('api/v1/authors') }}/${authorId}`);
+                    nomeInput.value = (await data.json()).name;
+                }
+                const id = '{{ request()->route('id') }}';
+                fetchData(id);
 
                 form.addEventListener('submit', async function(e) {
                     e.preventDefault();
@@ -83,7 +89,7 @@
                     spinner.classList.remove('d-none');
 
                     try {
-                        const route = "{{ route("authors.update", ['author' => ':id']) }}";
+                        const route = "{{ route("authors.api.update", ['id' => ':id']) }}";
                         const finalRoute = route.replace(':id', '{{ request()->route('id') }}')
                         const response = await fetch(finalRoute, {
                             method: 'PUT',

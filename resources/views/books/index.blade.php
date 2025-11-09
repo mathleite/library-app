@@ -38,7 +38,7 @@
             document.addEventListener('DOMContentLoaded', getAllBooks);
             async function getAllBooks() {
                 try {
-                    const response = await fetch('{{ route("books.index") }}', {
+                    const response = await fetch('{{ route("books.api.index") }}', {
                         method: 'GET',
                         headers: {
                             'Content-Type': 'application/json',
