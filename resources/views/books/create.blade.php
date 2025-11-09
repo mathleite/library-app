@@ -82,9 +82,44 @@
         </div>
     </div>
 
+    <!-- Error Modal -->
+    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-danger">
+          <div class="modal-header bg-danger text-white">
+            <h5 class="modal-title" id="errorModalLabel">Oops!</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p id="errorModalMessage" class="mb-0"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     @push('scripts')
         <script>
             document.addEventListener('DOMContentLoaded', initForm);
+
+            // Modal setup
+            const _errorModalEl = document.getElementById('errorModal');
+            let _errorModalInstance = null;
+            const _errorModalMessage = document.getElementById('errorModalMessage');
+            if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
+                _errorModalInstance = new bootstrap.Modal(_errorModalEl);
+            }
+
+            function _showErrorModal(message) {
+                if (_errorModalInstance) {
+                    _errorModalMessage.textContent = message;
+                    _errorModalInstance.show();
+                } else {
+                    alert(message);
+                }
+            }
 
             const StringUtils = {
                 onlyDigits: (str) => str.replace(/\D/g, ''),
@@ -232,7 +267,11 @@
 
                     } catch (error) {
                         console.error('Error fetching options:', error);
-                        throw error;
+                        if (error && error.isApiError) {
+                            _showErrorModal(error.message || 'Error fetching options');
+                        } else {
+                            throw error;
+                        }
                     }
                 },
 
@@ -437,11 +476,17 @@
                         if (response.ok) {
                             window.location.href = '{{ route("books.index-view") }}';
                         } else {
-                            throw new Error(data.message || 'Error creating book');
+                            const err = new Error(data.message || 'Error creating book');
+                            err.isApiError = true;
+                            throw err;
                         }
                     } catch (error) {
                         console.error('Error:', error);
-                        alert('Error creating book: ' + error.message);
+                        if (error && error.isApiError) {
+                            _showErrorModal('Error creating book: ' + error.message);
+                        } else {
+                            alert('Error creating book: ' + error.message);
+                        }
                         FormManager.setLoadingState(false);
                     }
                 },
@@ -463,7 +508,12 @@
                 FormManager.initializeElements();
                 FormManager.setupEventListeners();
                 ApiService.fetchOptions()
-                    .catch(error => console.error('Failed to fetch options:', error));
+                    .catch(error => {
+                        console.error('Failed to fetch options:', error);
+                        if (error && error.isApiError) {
+                            _showErrorModal(error.message || 'Failed to fetch options');
+                        }
+                    });
             }
         </script>
     @endpush

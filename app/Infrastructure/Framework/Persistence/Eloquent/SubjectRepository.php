@@ -76,6 +76,7 @@ final readonly class SubjectRepository implements \App\Domain\Contracts\Persiste
     public function findById(int $id): Subject
     {
         try {
+            /** @var SubjectModel $subjectModel */
             $subjectModel = $this->model->findOrFail($id);
             return SubjectMapper::toDomain($subjectModel);
         } catch (ModelNotFoundException) {

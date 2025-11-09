@@ -47,6 +47,24 @@
         </div>
     </div>
 
+    <!-- Error Modal -->
+    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-danger">
+          <div class="modal-header bg-danger text-white">
+            <h5 class="modal-title" id="errorModalLabel">Oops!</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p id="errorModalMessage" class="mb-0"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     @push('scripts')
         <script>
             document.addEventListener('DOMContentLoaded', function() {
@@ -55,6 +73,23 @@
                 const charCount = document.getElementById('charCount');
                 const submitBtn = document.getElementById('submitBtn');
                 const spinner = submitBtn.querySelector('.spinner-border');
+
+                // Modal setup
+                const errorModalEl = document.getElementById('errorModal');
+                let errorModalInstance = null;
+                const errorModalMessage = document.getElementById('errorModalMessage');
+                if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
+                    errorModalInstance = new bootstrap.Modal(errorModalEl);
+                }
+
+                function showErrorModal(message) {
+                    if (errorModalInstance) {
+                        errorModalMessage.textContent = message;
+                        errorModalInstance.show();
+                    } else {
+                        alert(message);
+                    }
+                }
 
                 descInput.addEventListener('input', function() {
                     const length = this.value.length;
@@ -92,20 +127,26 @@
                             },
                             body: JSON.stringify({ description })
                         });
-                        const data = await response.json();
+
+                        let data = await response.json();
 
                         if (response.ok) {
                             window.location.href = '{{ route("subjects.index-view") }}';
-                        } else {
-                            throw new Error(data.message || 'Erro ao cadastrar subject');
+                            return;
                         }
 
-                    } catch (error) {
-                        console.error('Erro:', error);
-                        alert('Erro ao cadastrar subject: ' + error.message);
+                        const message = (data && data.message) ? data.message : ('API error: ' + (response.status || 'unknown'));
+                        const apiError = new Error(message);
+                        apiError.isApiError = true;
+                        throw apiError;
 
+                    } catch (error) {
                         submitBtn.disabled = false;
                         spinner.classList.add('d-none');
+
+                        if (error && error.isApiError) {
+                            showErrorModal(error.message || 'An error occurred');
+                        }
                     }
                 });
 

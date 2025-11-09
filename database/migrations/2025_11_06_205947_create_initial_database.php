@@ -15,11 +15,11 @@ return new class () extends Migration {
             $table->string('Nome', 40)->unique();
         });
         Schema::create('Assunto', function (Blueprint $table) {
-            $table->id('codAs');
-            $table->string('Descricao', 20);
+            $table->id('codAs')->primary();
+            $table->string('Descricao', 20)->unique();
         });
         Schema::create('Livro', function (Blueprint $table) {
-            $table->id('Codl');
+            $table->id('Codl')->primary();
             $table->string('Titulo', 40)
                 ->index();
             $table->string('Editora', 40)

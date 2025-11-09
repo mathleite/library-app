@@ -33,9 +33,45 @@
         </div>
     </div>
 
+    <!-- Error Modal -->
+    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-danger">
+          <div class="modal-header bg-danger text-white">
+            <h5 class="modal-title" id="errorModalLabel">Oops!</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p id="errorModalMessage" class="mb-0"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     @push('scripts')
         <script>
             document.addEventListener('DOMContentLoaded', getAllBooks);
+
+            // Modal setup
+            const _errorModalEl = document.getElementById('errorModal');
+            let _errorModalInstance = null;
+            const _errorModalMessage = document.getElementById('errorModalMessage');
+            if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
+                _errorModalInstance = new bootstrap.Modal(_errorModalEl);
+            }
+
+            function _showErrorModal(message) {
+                if (_errorModalInstance) {
+                    _errorModalMessage.textContent = message;
+                    _errorModalInstance.show();
+                } else {
+                    alert(message);
+                }
+            }
+
             async function getAllBooks() {
                 try {
                     const response = await fetch('{{ route("books.api.index") }}', {
@@ -51,11 +87,17 @@
                     if (response.ok) {
                         fillTableData(data);
                     } else {
-                        throw new Error(data.message || 'Error to list books');
+                        const err = new Error(data.message || 'Error to list books');
+                        err.isApiError = true;
+                        throw err;
                     }
 
                 } catch (error) {
-                    alert(`Error to list books: ${error}`);
+                    if (error && error.isApiError) {
+                        _showErrorModal(`Error to list books: ${error.message}`);
+                    } else {
+                        alert(`Error to list books: ${error}`);
+                    }
                 }
             }
 
@@ -119,10 +161,16 @@
                     if (response.ok) {
                         window.location.reload();
                     } else {
-                        throw new Error(data.message || 'Error to delete book');
+                        const err = new Error(data.message || 'Error to delete book');
+                        err.isApiError = true;
+                        throw err;
                     }
                 } catch (error) {
-                    alert(`Error to delete book: ${error}`);
+                    if (error && error.isApiError) {
+                        _showErrorModal(`Error to delete book: ${error.message}`);
+                    } else {
+                        alert(`Error to delete book: ${error}`);
+                    }
                 }
             }
 
