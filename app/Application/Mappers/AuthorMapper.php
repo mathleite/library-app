@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Infrastructure\Mappers;
+namespace App\Application\Mappers;
 
 use App\Domain\Entities\Author;
-use App\Models\AuthorModel;
+use App\Infrastructure\Framework\Persistence\Eloquent\Models\AuthorModel;
 
 readonly class AuthorMapper
 {

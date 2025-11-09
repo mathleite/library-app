@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Framework\Persistence\Eloquent;
 
+use App\Application\Mappers\SubjectMapper;
 use App\Domain\Entities\Subject;
 use App\Domain\Exceptions\SubjectAlreadyExistsException;
 use App\Domain\Exceptions\SubjectNotFoundException;
 use App\Domain\ValueObjects\CursorPagination;
-use App\Infrastructure\Mappers\SubjectMapper;
-use App\Models\SubjectModel;
+use App\Infrastructure\Framework\Persistence\Eloquent\Models\SubjectModel;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Pagination\CursorPaginator;

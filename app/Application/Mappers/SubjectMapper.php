@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Infrastructure\Mappers;
+namespace App\Application\Mappers;
 
 use App\Domain\Entities\Subject;
-use App\Models\SubjectModel;
+use App\Infrastructure\Framework\Persistence\Eloquent\Models\SubjectModel;
 
 readonly class SubjectMapper
 {

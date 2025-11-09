@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Framework\Persistence\Eloquent;
 
+use App\Application\Mappers\AuthorMapper;
 use App\Domain\Entities\Author;
 use App\Domain\Exceptions\AuthorAlreadyExistsException;
 use App\Domain\Exceptions\AuthorNotFoundException;
 use App\Domain\ValueObjects\CursorPagination;
-use App\Infrastructure\Mappers\AuthorMapper;
-use App\Models\AuthorModel;
+use App\Infrastructure\Framework\Persistence\Eloquent\Models\AuthorModel;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Pagination\CursorPaginator;

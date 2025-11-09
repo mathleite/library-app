@@ -11,7 +11,10 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::prefix('v1')->group(function () {
-    Route::resource('authors', AuthorController::class);
-    Route::resource('books', BookController::class);
-    Route::resource('subjects', SubjectController::class);
+    Route::resource('authors', AuthorController::class)
+        ->except('create', 'edit');
+    Route::resource('books', BookController::class)
+        ->except('create', 'edit');
+    Route::resource('subjects', SubjectController::class)
+        ->except('create', 'edit');
 });

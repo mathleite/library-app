@@ -3,7 +3,7 @@
 namespace App\Infrastructure\Framework\Persistence\Eloquent;
 
 use App\Domain\Exceptions\BookAuthorRelationNotFoundException;
-use App\Models\BookAuthorRelationModel;
+use App\Infrastructure\Framework\Persistence\Eloquent\Models\BookAuthorRelationModel;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 final readonly class BookAuthorRelationRepository implements \App\Domain\Contracts\Persistence\BookAuthorRelationRepository

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Infrastructure\Mappers;
+namespace App\Application\Mappers;
 
 use App\Domain\Entities\Author;
 use App\Domain\Entities\Book;
 use App\Domain\Exceptions\InvalidMoneyException;
-use App\Models\BookAuthorRelationModel;
-use App\Models\BookModel;
-use App\Models\BookSubjectRelationModel;
+use App\Infrastructure\Framework\Persistence\Eloquent\Models\BookAuthorRelationModel;
+use App\Infrastructure\Framework\Persistence\Eloquent\Models\BookModel;
+use App\Infrastructure\Framework\Persistence\Eloquent\Models\BookSubjectRelationModel;
 
 readonly class BookMapper
 {

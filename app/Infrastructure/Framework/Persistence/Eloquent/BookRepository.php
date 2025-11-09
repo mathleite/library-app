@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Framework\Persistence\Eloquent;
 
+use App\Application\Mappers\BookMapper;
 use App\Domain\Entities\Book;
 use App\Domain\Exceptions\BookAlreadyExistsException;
 use App\Domain\Exceptions\BookNotFoundException;
 use App\Domain\Exceptions\InvalidMoneyException;
 use App\Domain\ValueObjects\CursorPagination;
-use App\Infrastructure\Mappers\BookMapper;
-use App\Models\BookModel;
+use App\Infrastructure\Framework\Persistence\Eloquent\Models\BookModel;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Pagination\CursorPaginator;
 

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Models;
+namespace App\Infrastructure\Framework\Persistence\Eloquent\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class BookAuthorRelationModel extends Model
+class BookSubjectRelationModel extends Model
 {
-    protected $table = 'Livro_Autor';
+    protected $table = 'Livro_Assunto';
 
     public $incrementing = false;
 
@@ -17,7 +17,7 @@ class BookAuthorRelationModel extends Model
 
     protected $fillable = [
         'Livro_Codl',
-        'Autor_CodAu',
+        'Assunto_codAs',
     ];
 
     /**
@@ -30,11 +30,10 @@ class BookAuthorRelationModel extends Model
     }
 
     /**
-     * @return BelongsTo
-     * @phpstan-return BelongsTo<AuthorModel, $this>
+     * @return BelongsTo<SubjectModel, $this>
      */
-    public function author(): BelongsTo
+    public function subject(): BelongsTo
     {
-        return $this->belongsTo(AuthorModel::class, 'Autor_CodAu', 'CodAu');
+        return $this->belongsTo(SubjectModel::class, 'Assunto_codAs', 'codAs');
     }
 }
