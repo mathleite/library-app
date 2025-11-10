@@ -11,11 +11,11 @@
                 <h1 class="h3 mb-0">Books Report</h1>
                 <p class="text-muted mb-0">Complete book analysis by author and subject.</p>
             </div>
-            <div class="d-flex gap-2">
-                <button class="btn btn-outline-primary" onclick="exportToExcel()">
-                    <i class="bi bi-file-earmark-excel"></i> Export
-                </button>
-            </div>
+{{--            <div class="d-flex gap-2">--}}
+{{--                <button class="btn btn-outline-primary" onclick="exportToExcel()">--}}
+{{--                    <i class="bi bi-file-earmark-excel"></i> Export--}}
+{{--                </button>--}}
+{{--            </div>--}}
         </div>
 
         <!-- Filtros -->
@@ -225,7 +225,7 @@
                                 <td colspan="8" class="text-center py-4">
                                     <div class="text-muted">
                                         <i class="bi bi-inbox display-4 d-block mb-2"></i>
-                                        Nenhum livro encontrado com os filtros aplicados.
+                                        No books found matching the selected filters.
                                     </div>
                                 </td>
                             </tr>

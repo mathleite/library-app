@@ -58,10 +58,10 @@ class BookReportRepository implements \App\Domain\Contracts\Persistence\BookRepo
                 DB::raw('COUNT(DISTINCT codigo_assunto) as total_assuntos_livro'),
                 // Agregar informações de outros autores
                 DB::raw('(SELECT STRING_AGG(DISTINCT brv2.nome_autor, \'; \')
-                         FROM Relatorio_Livros_Autores_Assuntos brv2
+                         FROM relatorio_livros_autores_assuntos brv2
                          WHERE brv2.codigo_livro = brv1.codigo_livro) as todos_autores'),
                 DB::raw('(SELECT COUNT(DISTINCT brv2.codigo_autor)
-                         FROM Relatorio_Livros_Autores_Assuntos brv2
+                         FROM relatorio_livros_autores_assuntos brv2
                          WHERE brv2.codigo_livro = brv1.codigo_livro) as total_autores_livro')
             )
             ->groupBy(
@@ -129,7 +129,7 @@ class BookReportRepository implements \App\Domain\Contracts\Persistence\BookRepo
     private function getViewSql(): string
     {
         return <<<SQL
-        CREATE OR REPLACE VIEW Relatorio_Livros_Autores_Assuntos AS
+        CREATE OR REPLACE VIEW relatorio_livros_autores_assuntos AS
         SELECT
             -- Informações do Autor
             a."CodAu" AS codigo_autor,
@@ -175,7 +175,7 @@ class BookReportRepository implements \App\Domain\Contracts\Persistence\BookRepo
      */
     public function getViewName(): string
     {
-        return 'Relatorio_Livros_Autores_Assuntos';
+        return 'relatorio_livros_autores_assuntos';
     }
 
     /**
