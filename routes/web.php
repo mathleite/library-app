@@ -1,5 +1,6 @@
 <?php
 
+use App\Infrastructure\Framework\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', fn () => view('welcome'));
@@ -20,4 +21,9 @@ Route::prefix('books')->group(function () {
     Route::get('/', fn () => view('books/index'))->name('books.index-view');
     Route::get('/create', fn () => view('books/create'))->name('books.create');
     Route::get('/{id}', fn () => view('books/edit'))->name('books.edit-view');
+});
+
+Route::prefix('reports')->group(function () {
+    Route::get('/', [ReportController::class, 'index'])->name('reports.index-view');;
+    Route::post('/books/refresh', [ReportController::class, 'refresh'])->name('reports.refresh');
 });

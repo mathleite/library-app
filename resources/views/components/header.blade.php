@@ -43,6 +43,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('subjects.index-view') }}">Subjects</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('reports.index-view') }}">Reports</a>
+                </li>
             </ul>
         </div>
     </div>
